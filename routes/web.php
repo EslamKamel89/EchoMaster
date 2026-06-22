@@ -1,8 +1,18 @@
 <?php
 
+use App\Events\Example;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+
+Route::get('/broadcast', function () {
+    broadcast(new Example(User::where('email', 'admin@gmail.com')->firstOrFail()));
+
+    return response()->json([
+        'message' => 'Event broadcasted',
+    ]);
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
