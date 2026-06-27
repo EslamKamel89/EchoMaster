@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Events\Chat;
+namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ExampleTwo implements ShouldBroadcastNow
+class OrderDispatched implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(public User $user)
     {
         //
     }
@@ -28,7 +30,7 @@ class ExampleTwo implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new Channel('chat'),
+            new PrivateChannel('users.'.$this->user->id),
         ];
     }
 }

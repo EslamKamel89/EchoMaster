@@ -6,13 +6,14 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\Attributes\Queue;
 use Illuminate\Queue\SerializesModels;
 
-#[Queue('chat')]
-class Example implements ShouldBroadcast
+// #[Queue('chat')]
+class Example implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -50,6 +51,7 @@ class Example implements ShouldBroadcast
     {
         return [
             new Channel('chat'),
+            // new PrivateChannel('users.{id}'),
         ];
     }
 }
