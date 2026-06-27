@@ -11,6 +11,9 @@
                         console.log('Example Event received') ;
                         console.log(e);
                         console.log(`Welcome ${e.user.name}`)
+                    }).listen('Chat.ExampleTwo', (e)=>{
+                        console.log('Example Two Event received') ;
+                        console.log(e);
                     });
                 }
             };
